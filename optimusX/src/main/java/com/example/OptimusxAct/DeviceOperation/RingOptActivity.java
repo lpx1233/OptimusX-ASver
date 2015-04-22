@@ -265,4 +265,9 @@ public class RingOptActivity extends ActionBarActivity implements Writable{
 	public void onReadBalance(byte[] arrayBalance) {
 		// do nothing
 	}
+
+    @Override
+    public void onSendIDCard(boolean isSuccess){
+        //do nothing
+    }
 }

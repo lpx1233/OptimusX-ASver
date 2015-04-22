@@ -249,4 +249,9 @@ public class MyRingsFragment extends Fragment implements Writable{
 	public void onReadBalance(byte[] arrayBalance) {
         //do nothing
 	}
+
+    @Override
+    public void onSendIDCard(boolean isSuccess){
+        //do nothing
+    }
 }

@@ -33,28 +33,18 @@ import android.content.IntentFilter;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
+import com.optimusx.model.Callbackable;
+import com.optimusx.model.Writable;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import java.lang.System;
-
-import com.example.android.bluetoothlegatt.*;
-import com.optimusx.model.Callbackable;
-import com.optimusx.model.Writable;
 
 /**
  * Service for managing connection and data communication with a GATT server hosted on a
@@ -719,8 +709,10 @@ public class BluetoothLeService extends Service {
 				try {Thread.sleep(10000);
 	            } catch (InterruptedException e) {
 	                Log.v(TAG, "Write thread interrupted");
+                    mWritable.onSendIDCard(true);
+                    disconnect();
 	            }
-				disconnect();
+				if(NOTIFICATION != 3) mWritable.onSendIDCard(false);
 				//if(!mConnected) return;
 				//readIDcard(mWritable);
 	    	}

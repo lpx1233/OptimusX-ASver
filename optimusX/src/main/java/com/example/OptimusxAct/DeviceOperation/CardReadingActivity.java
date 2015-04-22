@@ -163,7 +163,12 @@ public class CardReadingActivity extends ActionBarActivity implements Writable{
 		//do nothing
 	}
 
-	@Override
+    @Override
+    public void onSendIDCard(boolean isSuccess) {
+        //do nothing
+    }
+
+    @Override
 	public void onReadBalance(byte[] arrayBalance) {
 		DataInputStream dis = new DataInputStream(new ByteArrayInputStream(arrayBalance));
 		try {
