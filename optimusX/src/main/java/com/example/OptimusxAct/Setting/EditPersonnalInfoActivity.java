@@ -1,6 +1,9 @@
 package com.example.OptimusxAct.Setting;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.OptimusxAct.Guide.EnterActivity;
 import com.example.OptimusxAct.R;
@@ -35,6 +39,10 @@ public class EditPersonnalInfoActivity extends ActionBarActivity implements Writ
     private boolean isGuide = false;
     private ServiceConnection mServiceConnection;
     private BluetoothLeService mBluetoothLeService;
+    private ProgressDialog mProgressDialog;
+    private boolean personalInfoSetSuccess;
+    private boolean ifBleCommunicationFinished;
+    private IDcard myIdc;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +108,14 @@ public class EditPersonnalInfoActivity extends ActionBarActivity implements Writ
             }
         };
         bindService(service, mServiceConnection, BIND_AUTO_CREATE);
+
+        //deal with ProgressDialog
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setTitle("提示");
+        mProgressDialog.setMessage("正在设定个人信息...");
+        mProgressDialog.setIndeterminate(false);
+        mProgressDialog.setCancelable(false);
 	}
 
     @Override
@@ -122,7 +138,7 @@ public class EditPersonnalInfoActivity extends ActionBarActivity implements Writ
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.action_save:
-                IDcard myIdc = new IDcard();
+                myIdc = new IDcard();
                 myIdc.setName(mName.getText().toString());
                 myIdc.setPhoneNumber(mPhoneNum.getText().toString());
                 myIdc.setSchoolNumber(mSchNum.getText().toString());
@@ -132,15 +148,57 @@ public class EditPersonnalInfoActivity extends ActionBarActivity implements Writ
                 myIdc.setTag(mLabel.getText().toString());
                 cdHelper.addMyIdcard(cdHelper.getWritableDatabase(), myIdc);
 
-                //send my idcard to device
-                mBluetoothLeService.sendIDcard(null, myIdc);
-
-                if(isGuide){
-                    //jump to EnterActivity
-                    Intent intent = new Intent(this, EnterActivity.class);
-                    startActivity(intent);
-                }
-                finish();
+                mProgressDialog.show();
+                //social sync
+                new Thread(new Runnable(){
+                    @Override
+                    public void run(){
+                        //send my idcard to device
+                        mBluetoothLeService.sendIDcard(null, myIdc);
+                        long time = 0;
+                        personalInfoSetSuccess = true;
+                        while(!ifBleCommunicationFinished){
+                            try {
+                                Thread.sleep(200);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            time = time + 200;
+                            if(time == 60000){
+                                personalInfoSetSuccess = false;
+                                break;
+                            }
+                        }
+                        if(personalInfoSetSuccess){
+                            mProgressDialog.dismiss();
+                            EditPersonnalInfoActivity.this.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "个人信息设置成功", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            if(isGuide){
+                                //jump to EnterActivity
+                                Intent intent = new Intent(EditPersonnalInfoActivity.this, EnterActivity.class);
+                                startActivity(intent);
+                            }
+                            EditPersonnalInfoActivity.this.finish();
+                        }else{
+                            mProgressDialog.dismiss();
+                            EditPersonnalInfoActivity.this.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    new AlertDialog.Builder(EditPersonnalInfoActivity.this).setTitle("个人信息设置失败")//设置对话框标题
+                                        .setMessage("请检查设备是否正确运行,并重试")//设置显示的内容
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {//添加确定按钮
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
+                                                //do nothing
+                                            }
+                                        }).show();//在按键响应事件中显示此对话框
+                                }
+                            });
+                        }
+                    }
+                }).start();
                 break;
         }
         return true;
@@ -148,16 +206,17 @@ public class EditPersonnalInfoActivity extends ActionBarActivity implements Writ
 
     @Override
     public void onReadIDCard(IDcard[] idc) {
-
+        //do nothing
     }
 
     @Override
     public void onSendIDCard(boolean isSuccess) {
-
+        ifBleCommunicationFinished = true;
+        personalInfoSetSuccess = isSuccess;
     }
 
     @Override
     public void onReadBalance(byte[] arrayBalance) {
-
+        //do nothing
     }
 }
