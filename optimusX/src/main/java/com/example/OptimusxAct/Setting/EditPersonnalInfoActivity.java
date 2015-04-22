@@ -154,7 +154,7 @@ public class EditPersonnalInfoActivity extends ActionBarActivity implements Writ
                     @Override
                     public void run(){
                         //send my idcard to device
-                        mBluetoothLeService.sendIDcard(null, myIdc);
+                        mBluetoothLeService.sendIDcard(EditPersonnalInfoActivity.this, myIdc);
                         long time = 0;
                         personalInfoSetSuccess = true;
                         while(!ifBleCommunicationFinished){
