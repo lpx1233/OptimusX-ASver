@@ -1,0 +1,150 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+    
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/act_edit_info_toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="144dp"
+        android:src = "@drawable/phone"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="名字"
+        android:ems="4"
+        android:textSize="34sp"
+        android:id="@+id/act_view_contact_name"
+        android:layout_alignTop="@+id/act_edit_info_toolbar"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_marginTop="72dp"
+        android:textColor="@color/primary_text"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="学号"
+        android:ems="5"
+        android:id="@+id/schnum"
+        android:textSize="20sp"
+        android:layout_alignBottom="@+id/act_view_contact_name"
+        android:layout_toEndOf="@+id/act_view_contact_name"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/primary_text" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:hint="电话"
+        android:id="@+id/phone"
+        android:textSize="24sp"
+        android:layout_alignTop="@+id/act_view_contact_name"
+        android:layout_marginTop="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="72dp"
+        android:textColor="@color/primary_text" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_alignTop="@+id/phone"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_marginTop="72dp"
+        android:src = "@drawable/weixin"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/weixin"
+        android:ems="10"
+        android:hint="微信"
+        android:textSize="24sp"
+        android:layout_alignTop="@+id/phone"
+        android:layout_marginTop="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="72dp"
+        android:textColor="@color/primary_text" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:layout_alignTop="@+id/weixin"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_marginTop="72dp"
+        android:src = "@drawable/sina_weibo_f"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/weibo"
+        android:ems="10"
+        android:hint="微博"
+        android:textSize="24sp"
+        android:layout_alignTop="@+id/weixin"
+        android:layout_marginTop="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="72dp"
+        android:textColor="@color/primary_text" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView4"
+        android:layout_alignTop="@+id/weibo"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_marginTop="72dp"
+        android:src = "@drawable/qq"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:id="@+id/qq"
+        android:ems="10"
+        android:hint="QQ"
+        android:textSize="24sp"
+        android:layout_alignTop="@+id/weibo"
+        android:layout_marginTop="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="72dp"
+        android:textColor="@color/primary_text" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView5"
+        android:layout_alignTop="@+id/qq"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_marginTop="72dp"
+        android:src = "@drawable/label27"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/label"
+        android:ems="10"
+        android:hint="标签(标签间用分号间隔)"
+        android:textSize="24sp"
+        android:layout_alignTop="@+id/qq"
+        android:layout_marginTop="65dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="72dp"
+        android:textColor="@color/primary_text" />
+</RelativeLayout>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.OptimusxAct"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="18"
+        android:targetSdkVersion="21" />
+    <!-- BLE requirement -->
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- OptimusX app -->
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme.Base" >
+
+        <!-- OptimusX Activities -->
+        <activity
+            android:name=".StartActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".DeviceOperation.RingOptActivity"
+            android:label="@string/title_activity_ring_opt"
+            android:parentActivityName=".StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StartActivity" />
+        </activity>
+        <activity
+            android:name=".DeviceOperation.CardReadingActivity"
+            android:label="@string/title_activity_card_reading"
+            android:parentActivityName=".DeviceOperation.RingOptActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.OptimusxAct.DeviceOperation.RingOptActivity" />
+        </activity>
+        <activity
+            android:name=".Setting.AboutActivity"
+            android:label="@string/title_activity_about"
+            android:parentActivityName=".StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StartActivity" />
+        </activity>
+        <activity
+            android:name=".Setting.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StartActivity" />
+        </activity>
+        <activity
+            android:name=".Guide.NewRingActivity"
+            android:label="@string/title_activity_new_ring"
+            android:parentActivityName=".StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StartActivity" />
+        </activity>
+        <activity
+            android:name=".Guide.InitNewRingActivity"
+            android:label="@string/title_activity_init_new_ring"
+            android:parentActivityName=".Guide.NewRingActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.OptimusxAct.Guide.NewRingActivity" />
+        </activity>
+        <activity
+            android:name=".Contact.ViewContactActivity"
+            android:label="@string/title_activity_view_contact"
+            android:parentActivityName=".StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StartActivity" />
+        </activity>
+        <activity
+            android:name=".Setting.EditPersonnalInfoActivity"
+            android:label="@string/title_activity_edit_personnal_info" >
+        </activity>
+        <activity
+            android:name=".Guide.GuideActivity"
+            android:label="@string/title_activity_guide" >
+        </activity>
+        <activity
+            android:name=".LogoActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Guide.EnterActivity"
+            android:label="@string/title_activity_enter" >
+        </activity>
+        <!-- BLE Activities -->
+        <activity android:name="com.example.android.bluetoothlegatt.DeviceScanActivity" >
+        </activity>
+        <activity android:name="com.example.android.bluetoothlegatt.DeviceControlActivity" />
+
+        <service
+            android:name="com.example.android.bluetoothlegatt.BluetoothLeService"
+            android:enabled="true" />
+
+        <activity
+            android:name=".Setting.FeedbackActivity"
+            android:label="@string/title_activity_feedback" >
+        </activity>
+        <activity
+            android:name=".Contact.EditContactActivity"
+            android:label="@string/title_activity_edit_contact"
+            android:parentActivityName=".Contact.ViewContactActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Contact.ViewContactActivity" />
+        </activity>
+    </application>
+
+</manifest>

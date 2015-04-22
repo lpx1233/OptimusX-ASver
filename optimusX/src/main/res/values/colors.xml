@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 定义一些用到的颜色变量 -->
+<resources>
+    <color name="dim_foreground_dark">#bebebe</color>
+    <color name="dim_foreground_light">#323232</color>
+    <color name="contacts_list_name_color">#ffffff</color>
+    <color name="colorPrimary">#ffffff</color>
+    
+	<color name="primary">#3F51B5</color>
+	<color name="primary_dark">#303F9F</color>
+	<color name="primary_light">#C5CAE9</color>
+	<color name="accent">#FF5252</color>
+	<color name="primary_text">#212121</color>
+	<color name="secondary_text">#727272</color>
+	<color name="icons">#FFFFFF</color>
+	<color name="divider">#B6B6B6</color>
+</resources>

@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.OptimusxAct.Guide.GuideActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/guide_step_1"
+        android:id="@+id/textView2"
+        android:textSize="34sp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/guide_step_2"
+        android:id="@+id/textView1"
+        android:textSize="34sp"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_marginTop="120dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/guide_step_3"
+        android:id="@+id/textView3"
+        android:textSize="34sp"
+        android:layout_alignTop="@+id/textView1"
+        android:layout_marginTop="120dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Go!"
+        android:textColor="@color/primary_text"
+        android:textSize="34sp"
+        android:id="@+id/guide_go_button"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

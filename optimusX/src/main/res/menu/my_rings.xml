@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".StartActivity" >
+
+    <item
+        android:title="@string/title_activity_new_ring"
+        android:id="@+id/action_add"
+		android:orderInCategory="80"
+        android:icon="@drawable/ic_action_new"
+        app:showAsAction="ifRoom"/>
+
+</menu>

@@ -1,0 +1,134 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+    
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/act_view_contact_toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="李培轩"
+        android:textSize="34sp"
+        android:id="@+id/act_view_contact_name"
+        android:layout_below="@+id/act_view_contact_toolbar"
+        android:layout_marginTop="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/primary_text" />
+
+    <TextView
+        android:id="@+id/act_view_contact_school_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12021245"
+        android:textSize="20sp"
+        android:layout_alignBottom="@+id/act_view_contact_name"
+        android:layout_toEndOf="@+id/act_view_contact_name"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/primary_text"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phone"
+        android:src="@drawable/phone"
+        android:layout_below="@+id/act_view_contact_name"
+        android:layout_marginTop="32dp"
+        android:layout_alignStart="@+id/act_view_contact_name" />
+
+    <TextView
+        android:id="@+id/act_view_contact_phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15652916090"
+        android:textSize="28sp"
+        android:textColor="@color/primary_text"
+        android:layout_alignTop="@+id/phone"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="72dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/weixin"
+        android:layout_below="@+id/phone"
+        android:layout_marginTop="32dp"
+        android:layout_alignStart="@+id/act_view_contact_name"
+        android:src = "@drawable/weixin"/>
+
+    <TextView
+        android:id="@+id/act_view_contact_weixin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="lpx1233"
+        android:textSize="28sp"
+        android:textColor="@color/primary_text"
+        android:layout_alignTop="@+id/weixin"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="72dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/weibo"
+        android:layout_below="@+id/weixin"
+        android:layout_marginTop="32dp"
+        android:layout_alignStart="@+id/act_view_contact_name"
+        android:src = "@drawable/sina_weibo_f"/>
+
+    <TextView
+        android:id="@+id/act_view_contact_weibo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="lpx1233"
+        android:textSize="28sp"
+        android:textColor="@color/primary_text"
+        android:layout_alignTop="@+id/weibo"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="72dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/qq"
+        android:layout_below="@+id/weibo"
+        android:layout_marginTop="32dp"
+        android:layout_alignStart="@+id/act_view_contact_name"
+        android:src = "@drawable/qq"/>
+
+    <TextView
+        android:id="@+id/act_view_contact_qq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="956805832"
+        android:textSize="28sp"
+        android:textColor="@color/primary_text"
+        android:layout_alignTop="@+id/qq"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="72dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/label"
+        android:layout_below="@+id/qq"
+        android:layout_marginTop="32dp"
+        android:layout_alignStart="@+id/act_view_contact_name"
+        android:src = "@drawable/label27"/>
+
+    <TextView
+        android:id="@+id/act_view_contact_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="宅!"
+        android:textSize="28sp"
+        android:textColor="@color/primary_text"
+        android:layout_alignTop="@+id/label"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="72dp" />
+</RelativeLayout>
