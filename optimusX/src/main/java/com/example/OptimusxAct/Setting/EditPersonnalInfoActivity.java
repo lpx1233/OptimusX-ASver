@@ -81,7 +81,7 @@ public class EditPersonnalInfoActivity extends ActionBarActivity implements Writ
         }
 
 		//deal with database
-		cdHelper = new ContactsDatabaseHelper(this, "Contacts.db", null, 3);
+		cdHelper = new ContactsDatabaseHelper(this, "Contacts.db", null, 4);
 		SQLiteDatabase db = cdHelper.getWritableDatabase();
 
 		//set personal info
