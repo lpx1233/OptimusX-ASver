@@ -86,6 +86,7 @@ public class MyRingsFragment extends Fragment implements Writable{
 					@Override
 					public void run(){
 						ifIDCardReadingFinished = false;
+                        mBluetoothLeService = ((StartActivity)getActivity()).getmBluetoothLeService();
 						mBluetoothLeService.readIDcard(MyRingsFragment.this);
 						long time = 0;
 						readSuccess = true;

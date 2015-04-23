@@ -478,7 +478,7 @@ public class BluetoothLeService extends Service {
 
 	//改变命令位
 	private boolean setCommand(byte command){
-		if(command<=4 && command>=0) {
+		if(command<=5 && command>=0) {
 			FFF1.setValue(new byte[]{command});
 			Log.d(TAG, "set command "+ String.valueOf(command));
 			try {
@@ -1141,9 +1141,9 @@ public class BluetoothLeService extends Service {
 			@Override
 			public void run() {
                 try {
-                    writeThread.join();
-                    readThread.join();
-                    readBalanceThread.join();
+                    if(writeThread != null) writeThread.join();
+                    if(readThread != null) readThread.join();
+                    if(readBalanceThread != null) readBalanceThread.join();
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
