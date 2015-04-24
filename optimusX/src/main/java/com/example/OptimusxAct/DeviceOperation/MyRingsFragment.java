@@ -86,6 +86,7 @@ public class MyRingsFragment extends Fragment implements Writable{
 					@Override
 					public void run(){
 						ifIDCardReadingFinished = false;
+                        mBluetoothLeService = ((StartActivity)getActivity()).getmBluetoothLeService();
 						mBluetoothLeService.readIDcard(MyRingsFragment.this);
 						long time = 0;
 						readSuccess = true;
@@ -176,7 +177,7 @@ public class MyRingsFragment extends Fragment implements Writable{
         });
 
 		//deal with cdHelper
-		cdHelper = new ContactsDatabaseHelper(getActivity().getApplicationContext(), "Contacts.db", null, 3);
+		cdHelper = new ContactsDatabaseHelper(getActivity().getApplicationContext(), "Contacts.db", null, 4);
 
         //set the personal info
         mTvName.setText(cdHelper.myIdcard(cdHelper.getWritableDatabase()).n);

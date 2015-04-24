@@ -40,7 +40,7 @@ public class ViewContactActivity extends ActionBarActivity {
         mTVLabel = (TextView) findViewById(R.id.act_view_contact_label);
 
 		//deal with ContactsDatabaseHelper
-		cdHelper = new ContactsDatabaseHelper(this, "Contacts.db", null, 3);
+		cdHelper = new ContactsDatabaseHelper(this, "Contacts.db", null, 4);
 		
 		//deal with Toolbar
 		mToolbar = (Toolbar) findViewById(R.id.act_view_contact_toolbar);

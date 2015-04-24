@@ -64,7 +64,7 @@ public class RingOptActivity extends ActionBarActivity implements Writable{
 		});
 		
 		//deal with cdHelper
-		cdHelper = new ContactsDatabaseHelper(this, "Contacts.db", null, 1);
+		cdHelper = new ContactsDatabaseHelper(this, "Contacts.db", null, 4);
 
         // Use this check to determine whether BLE is supported on the device.  Then you can
         // selectively disable BLE-related features.

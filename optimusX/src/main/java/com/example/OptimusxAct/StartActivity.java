@@ -28,11 +28,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.OptimusxAct.DeviceOperation.MyRingsFragment;
-import com.example.android.bluetoothlegatt.BluetoothLeService;
 import com.example.OptimusxAct.Contact.AllBusinessCardFragment;
+import com.example.OptimusxAct.DeviceOperation.MyRingsFragment;
 import com.example.OptimusxAct.Guide.GuideActivity;
 import com.example.OptimusxAct.Setting.SettingFragment;
+import com.example.android.bluetoothlegatt.BluetoothLeService;
 import com.optimusx.model.AESEncryptor;
 
 public class StartActivity extends ActionBarActivity{
@@ -153,15 +153,10 @@ public class StartActivity extends ActionBarActivity{
 	            mBluetoothLeService = ((BluetoothLeService.LocalBinder)service).getService(); 
 	            mBluetoothLeService.setAddress(mDeviceAddress);
                 mBluetoothLeService.setPassword(mDevicePassword.getBytes());
-
-	            // resume the selected fragment
-                selectFragment(mPos);
-                mToolbar.setTitle(mTitle);
-                mDrawerList.setItemChecked(0, true);
 			}
 		};
 		bindService(service, mServiceConnection, BIND_AUTO_CREATE);
-		
+
         // Set the adapter for the list view
         mDrawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, new String[]{"我的设备", "所有名片", "设置"}));
         // Set the list's click listener
@@ -183,6 +178,10 @@ public class StartActivity extends ActionBarActivity{
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
+
+        // resume the selected fragment
+        selectFragment(mPos);
+        mToolbar.setTitle(mTitle);
     }
 
     @Override

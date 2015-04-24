@@ -38,7 +38,7 @@ public class AllBusinessCardFragment extends Fragment {
 		mRecyclerView = (RecyclerView) rootView.findViewById(R.id.act_all_busi_card_rv);
 		
 		//deal with ContactsDatabaseHelper
-		cdHelper = new ContactsDatabaseHelper(getActivity().getApplicationContext(), "Contacts.db", null, 3);
+		cdHelper = new ContactsDatabaseHelper(getActivity().getApplicationContext(), "Contacts.db", null, 4);
 
 		// use a linear layout manager
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
@@ -49,6 +49,7 @@ public class AllBusinessCardFragment extends Fragment {
         mAdapter.setOnItemClickListener(new MyItemClickListener() {
 			@Override
 			public void onItemClick(View view, int position) {
+                cdHelper.setNew(cdHelper.getWritableDatabase(), position, false);
 				Intent intent = new Intent(getActivity().getApplicationContext(), ViewContactActivity.class);
 				intent.putExtra("position", position);
 				startActivity(intent);
@@ -109,6 +110,13 @@ public class AllBusinessCardFragment extends Fragment {
             ((TextView)holder.mRootView.findViewById(R.id.contact_name)).setText(cdHelper.getContactName(cdHelper.getWritableDatabase(), position));
             ((TextView)holder.mRootView.findViewById(R.id.contact_phonenum)).setText(cdHelper.getContactPhoneNumber(cdHelper.getWritableDatabase(), position));
             ((TextView)holder.mRootView.findViewById(R.id.contact_schnum)).setText(cdHelper.getContactSchoolNumber(cdHelper.getWritableDatabase(), position));
+            int mTextNewVisibility;
+            if(cdHelper.isNew(cdHelper.getWritableDatabase(), position)){
+                mTextNewVisibility = View.VISIBLE;
+            }else{
+                mTextNewVisibility = View.INVISIBLE;
+            }
+            holder.mRootView.findViewById(R.id.text_new).setVisibility(mTextNewVisibility);
 
             //set click listener of remove contact
 	        (holder.mRootView.findViewById(R.id.remove_contact)).setOnClickListener(new MyCardViewImgBtnOnClickListener(position) {

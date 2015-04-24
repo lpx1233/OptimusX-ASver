@@ -1,16 +1,14 @@
 package com.optimusx.contacts;
 
-import com.example.android.bluetoothlegatt.IDcard;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.example.android.bluetoothlegatt.IDcard;
 /**
  * 在调用数据库的活动内声明一个private ContactsDatabaseHelper cdHelper，
  * 然后在onCreate方法中给cdHelper创建一个实例cdHelper = new ContactsDatabaseHelper(this, "Contacts.db", null, 1)，
@@ -23,6 +21,7 @@ public class ContactsDatabaseHelper extends SQLiteOpenHelper {
 	
 	public static final String CREATE_DATABASE = "create table Contacts ("
 			+ "id integer primary key autoincrement, "
+            + "isnew boolean, "
 			+ "name text, "
 			+ "phonenumber text, "
 			+ "schoolnumber text, "
@@ -120,7 +119,7 @@ public class ContactsDatabaseHelper extends SQLiteOpenHelper {
 		values.put("wbID", idcard.wbID);
 		values.put("qqID", idcard.qqID);
 		values.put("tag", idcard.tag);
-		
+		values.put("isnew", true);
 		if(db.update("Contacts", values, "name = ?", new String[]{idcard.n}) == 0){
 			db.insert("Contacts", null, values);
 		}
@@ -174,7 +173,7 @@ public class ContactsDatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public String getContactName(SQLiteDatabase db, int position){
 		Cursor cursor = db.query("Contacts",new String[]{"name"},null,null,null,null,null);
-		if(cursor.moveToPosition(position)){
+		if(cursor.moveToPosition(reverse(db,position))){
 			return cursor.getString(cursor.getColumnIndex("name"));
 		}else{
 			Log.w("com.example.optimusx","getContactName() cursor null!");
@@ -188,7 +187,7 @@ public class ContactsDatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public String getContactPhoneNumber(SQLiteDatabase db, int position){
 		Cursor cursor = db.query("Contacts",new String[]{"phonenumber"},null,null,null,null,null);
-		if(cursor.moveToPosition(position)){
+		if(cursor.moveToPosition(reverse(db,position))){
 			return cursor.getString(cursor.getColumnIndex("phonenumber"));
 		}else{
 			Log.w("com.example.optimusx","getContactPhoneNumber() cursor null!");
@@ -202,7 +201,7 @@ public class ContactsDatabaseHelper extends SQLiteOpenHelper {
 	 */
 	public String getContactSchoolNumber(SQLiteDatabase db, int position){
 		Cursor cursor = db.query("Contacts",new String[]{"schoolnumber"},null,null,null,null,null);
-		if(cursor.moveToPosition(position)){
+		if(cursor.moveToPosition(reverse(db,position))){
 			return cursor.getString(cursor.getColumnIndex("schoolnumber"));
 		}else{
 			Log.w("com.example.optimusx","getContactSchoolNumber() cursor null!");
@@ -212,7 +211,7 @@ public class ContactsDatabaseHelper extends SQLiteOpenHelper {
 	
 	public String getContactWxID(SQLiteDatabase db, int position){
 		Cursor cursor = db.query("Contacts",new String[]{"wxID"},null,null,null,null,null);
-		if(cursor.moveToPosition(position)){
+		if(cursor.moveToPosition(reverse(db,position))){
 			return cursor.getString(cursor.getColumnIndex("wxID"));
 		}else{
 			Log.w("com.example.optimusx","getContactWxID() cursor null!");
@@ -222,7 +221,7 @@ public class ContactsDatabaseHelper extends SQLiteOpenHelper {
 	
 	public String getContactWbID(SQLiteDatabase db, int position){
 		Cursor cursor = db.query("Contacts",new String[]{"wbID"},null,null,null,null,null);
-		if(cursor.moveToPosition(position)){
+		if(cursor.moveToPosition(reverse(db,position))){
 			return cursor.getString(cursor.getColumnIndex("wbID"));
 		}else{
 			Log.w("com.example.optimusx","getContactWbIDr() cursor null!");
@@ -232,7 +231,7 @@ public class ContactsDatabaseHelper extends SQLiteOpenHelper {
 	
 	public String getContactQqID(SQLiteDatabase db, int position){
 		Cursor cursor = db.query("Contacts",new String[]{"qqID"},null,null,null,null,null);
-		if(cursor.moveToPosition(position)){
+		if(cursor.moveToPosition(reverse(db,position))){
 			return cursor.getString(cursor.getColumnIndex("qqID"));
 		}else{
 			Log.w("com.example.optimusx","getContactQqID() cursor null!");
@@ -242,12 +241,44 @@ public class ContactsDatabaseHelper extends SQLiteOpenHelper {
 	
 	public String getContactTag(SQLiteDatabase db, int position){
 		Cursor cursor = db.query("Contacts",new String[]{"tag"},null,null,null,null,null);
-		if(cursor.moveToPosition(position)){
+		if(cursor.moveToPosition(reverse(db,position))){
 			return cursor.getString(cursor.getColumnIndex("tag"));
 		}else{
 			Log.w("com.example.optimusx","getContactSchoolNumber() cursor null!");
 			return null;
 		}
 	}
+
+    public boolean isNew(SQLiteDatabase db, int position){
+        Cursor cursor = db.query("Contacts",new String[]{"isnew"},null,null,null,null,null);
+        if(cursor.moveToPosition(reverse(db,position))){
+            return cursor.getInt(cursor.getColumnIndex("isnew")) != 0;
+        }else{
+            Log.w("com.example.optimusx","getContactSchoolNumber() cursor null!");
+            return false;
+        }
+    }
+
+    public void setNew(SQLiteDatabase db, int position, boolean ifnew){
+        ContentValues values = new ContentValues();
+
+        values.put("isnew", ifnew);
+
+        db.update("Contacts", values, "name = ?", new String[]{getContactName(db, position)});
+        values.clear();
+    }
+
+    /**
+     *
+     * @param db
+     * @param oriPosition
+     * @return
+     */
+    private int reverse(SQLiteDatabase db, int oriPosition){
+        int revPosition = getContactCount(db) - oriPosition - 1;
+        if(revPosition >= 0) return revPosition;
+        else Log.w("database", "ERROR: revPosition < 0");
+        return -1;
+    }
 
 }
