@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="18"
-        android:targetSdkVersion="21" />
+        android:targetSdkVersion="22" />
     <!-- BLE requirement -->
     <uses-feature
         android:name="android.hardware.bluetooth_le"
