@@ -131,6 +131,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Contact.ViewContactActivity" />
         </activity>
+
     </application>
 
 </manifest>
