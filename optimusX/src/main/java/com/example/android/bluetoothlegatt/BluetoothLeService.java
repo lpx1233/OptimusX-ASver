@@ -26,10 +26,8 @@ import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
@@ -117,6 +115,14 @@ public class BluetoothLeService extends Service {
     private Thread readUniauthThread;
 
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startID){
+        Log.d(TAG, "BTservice onStartCommand() called");
+        this.setAddress(intent.getStringExtra("DEVICE_ADDRESS"));
+        this.setPassword(intent.getByteArrayExtra("DEVICE_PASSWORD"));
+        return START_REDELIVER_INTENT;
+    }
+
 	public class LocalBinder extends Binder {
         public BluetoothLeService getService() {
             return BluetoothLeService.this;
@@ -125,7 +131,6 @@ public class BluetoothLeService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        registerReceiver(mReceiver, mIntentFilter());
         return mBinder;
     }
 
@@ -135,7 +140,6 @@ public class BluetoothLeService extends Service {
         // such that resources are cleaned up properly.  In this particular example, close() is
         // invoked when the UI is disconnected from the Service.
         close();
-        unregisterReceiver(mReceiver);
         return super.onUnbind(intent);
     }
 
@@ -991,20 +995,29 @@ public class BluetoothLeService extends Service {
     	}
     }
 
-    public final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            pushNotification();
-        }
-    };
-
-    private static IntentFilter mIntentFilter(){
-        final IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("android.intent.action.PHONE_STATE");
-        intentFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
-        return intentFilter;
-    }
     /////////////////////////External interface///////////////////////
+    /*在调用涉及到设备的外部接口之前请先调用以下两个方法
+    在不能确保密码和地址正确的情况下请勿调用其他接口，以免程序崩溃
+    */
+    /**
+     * 设置程序内部保存的密码。这个密码在每次连接设备时都需要验证。
+     * 请确保这个密码和设备的地址匹配，否则将在连接时返回密码错误。
+     * @param psw
+     */
+    public void setPassword(byte[] psw){
+        KEY = psw;
+    }
+
+    /**
+     * 设置设备地址。这个地址是连接的关键，请确保在连接前这个地址已经设置正确。
+     * 这个地址在停止该蓝牙服务时会丢失。所以需要在每次运行该服务时重新设置。
+     * @param address
+     */
+    public void setAddress(String address){
+        mDeviceAddress = address;
+    }
+
+    //以下为其他外部接口
     /**
      * 向设备发送一张名片。
      * @param wrt 这个参数没有意义，应该删除
@@ -1046,15 +1059,7 @@ public class BluetoothLeService extends Service {
 		onReading.reset();
 		readBalance();
 	}
-	
-	/**
-	 * 设置设备地址。这个地址是连接的关键，请确保在连接前这个地址已经设置正确。
-	 * 这个地址在停止该蓝牙服务时会丢失。所以需要在每次运行该服务时重新设置。
-	 * @param address
-	 */
-	public void setAddress(String address){
-		mDeviceAddress = address;
-	}
+
 	/**
 	 * 返回程序中保存的设备地址。
 	 * @return 程序中保存的设备地址
@@ -1071,16 +1076,7 @@ public class BluetoothLeService extends Service {
 		if(mDeviceAddress == null) return false;
 		else return true;
 	}
-	
-	/**
-	 * 设置程序内部保存的密码。这个密码在每次连接设备时都需要验证。
-	 * 请确保这个密码和设备的地址匹配，否则将在连接时返回密码错误。
-	 * @param psw
-	 */
-	public void setPassword(byte[] psw){
-		KEY = psw;
-	}
-	
+
 	/**
 	 * 更改设备内存储的密码。
 	 * @param oriPsw 原密码
